@@ -29,7 +29,7 @@ pipeline{
                 echo ' Source code published to Sonarqube for SCA......'
                 // withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
                 //     sh 'mvn sonar:sonar'
-                }
+                //}
 
             }
         }
