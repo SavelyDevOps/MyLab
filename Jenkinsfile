@@ -43,18 +43,22 @@ pipeline{
 
         stage ('Publish to Nexus') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: "${ArtifactId}", 
-                classifier: '', 
-                file: "target/${ArtifactId}-${Version}.${Packaging}", 
-                type: 'war']], 
-                credentialsId: '8a16801a-e484-4686-a017-f88aba3f8cf6', 
-                groupId: "${GroupId}", 
-                nexusUrl: '172.20.10.125:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: 'VinaysDevOpsLab-RELEASE', 
-                version: "${Version}"
-            }
+                script {
+                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "VinaysDevOpsLab-SNAPSHOT" : "VinaysDevOpsLab-RELEASE"
+
+                    nexusArtifactUploader artifacts: [[artifactId: "${ArtifactId}", 
+                    classifier: '', 
+                    file: "target/${ArtifactId}-${Version}.${Packaging}", 
+                    type: 'war']], 
+                    credentialsId: '8a16801a-e484-4686-a017-f88aba3f8cf6', 
+                    groupId: "${GroupId}", 
+                    nexusUrl: '172.20.10.125:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: "${NexusRepo}", 
+                    version: "${Version}"                       
+                }
+           }
         }
 
         // Stage3 : Publish the source code to Sonarqube
