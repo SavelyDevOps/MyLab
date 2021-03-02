@@ -45,7 +45,7 @@ pipeline{
             steps {
                 nexusArtifactUploader artifacts: [[artifactId: "${ArtifactId}", 
                 classifier: '', 
-                file: "target/'${ArtifactId}-'${Version}'.'${Packaging}'", 
+                file: "target/${ArtifactId}-${Version}.${Packaging}", 
                 type: 'war']], 
                 credentialsId: '8a16801a-e484-4686-a017-f88aba3f8cf6', 
                 groupId: "${GroupId}", 
