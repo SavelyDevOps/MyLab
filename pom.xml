@@ -5,7 +5,7 @@
   <artifactId>VinayDevOpsLab</artifactId>
   <packaging>war</packaging>
   <version>0.0.11</version>
-  <name>VinayDevOpsLab</name>
+  <name>VinaysDevOpsLab</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
