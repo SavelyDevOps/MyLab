@@ -5,6 +5,13 @@ pipeline{
         maven 'Maven'
     }
 
+    environment {
+        GroupId = readMavenPom().getGroupId()
+        ArtifactId = readMavenPom().getArtifactId()
+        Version = readMavenPom().getVersion()
+        Name = readMavenPom().getName()
+    }
+
     stages {
         // Specify various stage with in stages
 
@@ -36,6 +43,15 @@ pipeline{
                 protocol: 'http', 
                 repository: 'VinaysDevOpsLab-RELEASE', 
                 version: '0.0.9'
+            }
+        }
+
+        stage ('Print Environment') {
+            steps {
+                echo "Artifact ID is '${ArtifactId}'"
+                echo "Group ID is '${GroupId}'"
+                echo "Version is '${Version}'"
+                echo "Name is '${Name}'"
             }
         }
 
