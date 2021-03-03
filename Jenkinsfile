@@ -79,6 +79,25 @@ pipeline{
             }
         }
 
+        
+        stage('Deploy to Docker') {
+            steps {
+                //echo ' Deploying to Docker......'
+                sshPublisher(publishers: [sshPublisherDesc(
+                    configName: 'Ansible_Controller', 
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: false, 
+                            execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_docker.yaml -i /opt/playbooks/hosts', 
+                            execTimeout: 120000
+                            )
+                        ], 
+                    usePromotionTimestamp: false, 
+                    useWorkspaceInPromotion: false, 
+                    verbose: false)])
+            }
+        }
+
         // Stage3 : Publish the source code to Sonarqube
         stage ('Sonarqube Analysis'){
             steps {
